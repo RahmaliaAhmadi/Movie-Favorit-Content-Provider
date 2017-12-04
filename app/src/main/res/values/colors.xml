@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#cc51e7</color>
+    <color name="colorPrimaryDark">#9832af</color>
+    <color name="colorAccent">#62f2d3</color>
+
+    <color name="actionBarItemBackground">#AA00FF</color>
+    <color name="popupMenuStyle">#673AB7</color>
+    <color name="dropDownListviewStyle">#1DE9B6</color>
+    <color name="actionBarTabStyle">#651FFF</color>
+    <color name="actionDropDownStyle">#00E676</color>
+    <color name="actionBarStyle">#00C853</color>
+    <color name="panelBackground">#FF4081</color>
+    <color name="white">#fff</color>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_top_rated"
+            android:icon="@drawable/ic_trending_up_white_24dp"
+            android:title="@string/toprated" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_white_24dp"
+            android:title="@string/search_nav" />
+    </group>
+
+    <item android:title="@string/pengembang">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_outline_black_24dp"
+                android:title="@string/about" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_apps_black_24dp"
+                android:title="@string/more_app" />
+        </menu>
+    </item>
+
+    <item android:title="@string/action_settings">
+        <menu>
+            <item
+                android:id="@+id/nav_language"
+                android:icon="@drawable/ic_language_white_24dp"
+                android:title="@string/change_language" />
+        </menu>
+    </item>
+
+</menu>

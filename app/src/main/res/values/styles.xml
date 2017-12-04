@@ -8,4 +8,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.cataloguiux" parent="Theme.AppCompat.Light">
+        <item name="actionBarItemBackground">@color/actionBarItemBackground</item>
+        <item name="popupMenuStyle">@color/popupMenuStyle</item>
+        <item name="dropDownListViewStyle">@color/dropDownListviewStyle</item>
+        <item name="actionBarTabStyle">@color/actionBarTabStyle</item>
+        <item name="actionDropDownStyle">@color/actionDropDownStyle</item>
+        <item name="actionBarStyle">@color/actionBarStyle</item>
+        <item name="panelBackground">@color/panelBackground</item>
+    </style>
+
+    //custom
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_apps_black_24dp</item>
+        <item name="android:background">?android:attr/actionBarItemBackground</item>
+        <item name="android:contentDescription">"Lala"</item>
+    </style>
+
 </resources>

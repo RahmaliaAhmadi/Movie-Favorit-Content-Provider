@@ -11,9 +11,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            //inisiasi API_KEY
+            buildConfigField("String", "API_KEY", "\"a335a4721d43dd89695b62ad18073bae\"")
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //inisiasi API_KEY
+            buildConfigField("String", "API_KEY", "\"a335a4721d43dd89695b62ad18073bae\"")
         }
     }
 }
@@ -21,8 +27,21 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // library koneksi untuk mengambil API
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    // library konverter gson to json - json to gson
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    // library untuk load image
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    // library recyclerview
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    //library untuk meringkas inisiasi view
+    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.android.support:cardview-v7:27.0.1'
 }

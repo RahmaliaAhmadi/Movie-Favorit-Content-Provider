@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollViewDetails">
+    <RelativeLayout
+        android:id="@+id/rvLayoutDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_main"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageViewDetails"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/thumbnail_details_image"
+            tools:ignore="ContentDescription" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_main"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            android:backgroundTint="#00F0F8FF"
+            android:layout_alignParentLeft="true"
+            tools:targetApi="lollipop"
+            android:layout_alignParentStart="true"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewVote"
+                android:padding="@dimen/padding_main"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/margin_main"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="#00F0F8FF"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            android:padding="@dimen/padding_main"
+            android:id="@+id/cardTitle"
+            tools:ignore="RelativeOverlap,RtlHardcoded"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textTitleDetails"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/margin_main"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:padding="@dimen/padding_main"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_main"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            android:backgroundTint="#00F0F8FF"
+            android:layout_margin="@dimen/margin_main"
+            android:layout_below="@+id/imageViewDetails"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/overViewDetails"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/margin_main"
+                android:padding="@dimen/padding_main"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_favourite"
+            android:backgroundTint="@color/fab_favorite"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+
+</ScrollView>

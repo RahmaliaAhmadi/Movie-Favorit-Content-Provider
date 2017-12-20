@@ -3,6 +3,7 @@ package com.arjava.moviefavoritcp.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,9 @@ import com.arjava.moviefavoritcp.R;
 import com.arjava.moviefavoritcp.activity.DetailsMovie;
 import com.arjava.moviefavoritcp.model.MovieModel;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /*
  * Created by arjava on 11/15/17.
@@ -25,63 +27,83 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //create Object inisiasi
-    private List<MovieModel.ResultsBean> movieItemsList;
-    private int rowLayout;
+    private ArrayList<MovieModel> movieItemsList;
+
     private Context context;
+    private String TAG = MovieAdapter.class.getSimpleName();
+
+    public ArrayList<MovieModel> getMovieItemsList() {
+        return movieItemsList;
+    }
+    public void setMovieItemsList(ArrayList<MovieModel> movieItemsList) {
+        this.movieItemsList = movieItemsList;
+        notifyDataSetChanged();
+    }
 
     //konstruktor
-    public MovieAdapter(List<MovieModel.ResultsBean> movieItems, int rowLayout, Context context) {
-        this.movieItemsList = movieItems;
-        this.rowLayout = rowLayout;
+    public MovieAdapter(Context context) {
         this.context = context;
     }
 
     //mengatur tampilan layout
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_recycler, parent, false);
         return new MovieViewHolder(view);
     }
 
     //menampilkan hasil dari data yang kita ambil dari API
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         //mengambil posisi
-        final MovieModel.ResultsBean result = movieItemsList.get(position);
+        final MovieModel posisi = getMovieItemsList().get(position);
+
         //membuat holder
         final MovieAdapter.MovieViewHolder movieViewHolder = (MovieAdapter.MovieViewHolder) holder;
+
         //poster_id (untuk mengambil gambar)
-        final String id_poster = result.getPoster_path();
+        final String id_poster = posisi.getPoster_path();
         String url_image = "http://image.tmdb.org/t/p/w342/";
         final String poster_image = url_image +id_poster;
 
         //menampilkan ke dalam textView
-        movieViewHolder.textViewTitle.setText(result.getTitle());
-        movieViewHolder.textViewDescription.setText(result.getOverview());
-        movieViewHolder.textViewdate.setText(result.getRelease_date());
+        movieViewHolder.textViewTitle.setText(posisi.getTitle());
+        movieViewHolder.textViewDescription.setText(posisi.getOverview());
+        movieViewHolder.textViewdate.setText(posisi.getRelease_date());
+
+        Log.d(TAG, "onBindViewHolder: "+getItemCount());
 
         //menampilkan gambar
         Glide
                 .with(context)
                 .load(poster_image)
-                .centerCrop()
-                .override(300,400)
-                .placeholder(R.drawable.ic_crop_original_purple_300_24dp)
+                .apply(RequestOptions.centerCropTransform())
+                .apply(RequestOptions.overrideOf(300, 400))
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_crop_original_purple_300_24dp))
                 .into(movieViewHolder.imageView);
 
         //penanganan ketika button detail diklik
         movieViewHolder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent det = new Intent(view.getContext(), DetailsMovie.class);
-                det.putExtra("vote", result.getVote_average());
-                det.putExtra("orititle", result.getOriginal_title());
-                det.putExtra("overview", result.getOverview());
-                det.putExtra("poster", result.getPoster_path());
-                det.putExtra("date", result.getRelease_date());
-                det.putExtra("backdrop", result.getBackdrop_path());
-                view.getContext().startActivity(det);
+
+
+                int ID_MOVIE = posisi.getId();
+                MovieModel movieField = new MovieModel();
+                movieField.setMovie_id(ID_MOVIE);
+                movieField.setMovie_id(posisi.getMovie_id());
+                movieField.setTitle(posisi.getTitle());
+                movieField.setOriginal_title(posisi.getOriginal_title());
+                movieField.setOverview(posisi.getOverview());
+                movieField.setRelease_date(posisi.getRelease_date());
+                movieField.setPoster_path(posisi.getPoster_path());
+                movieField.setBackdrop_path(posisi.getBackdrop_path());
+                movieField.setVote_average(posisi.getVote_average());
+
+                Intent intent = new Intent(view.getContext(), DetailsMovie.class);
+                intent.putExtra(DetailsMovie.EXTRA_MOVIE, movieField);
+                context.startActivity(intent);
             }
         });
 
@@ -95,7 +117,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 // share url_info_film menggunakan intent
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, base_url_info_film+result.getId());
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, base_url_info_film+posisi.getId());
                 view.getContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
             }
@@ -128,6 +150,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     //mengambil posisi
     @Override
     public int getItemCount() {
-        return movieItemsList == null ? 0: movieItemsList.size();
+        return getMovieItemsList() == null ? 0: getMovieItemsList().size();
     }
 }

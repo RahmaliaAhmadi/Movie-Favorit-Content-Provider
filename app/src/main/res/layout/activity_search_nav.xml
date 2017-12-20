@@ -34,8 +34,7 @@
             android:layout_weight="3"
             android:text="@string/search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="submitSearch"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -46,5 +45,31 @@
         android:id="@+id/recyclerMovie">
 
     </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/card_error_load">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_main"
+            android:layout_margin="@dimen/margin_main">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_warning_green_300_24dp"
+                android:id="@+id/img_error_load"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_error_load"
+                android:text="@string/error_load_data"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

@@ -13,6 +13,9 @@ import android.widget.ImageView;
 
 import com.arjava.moviefavoritcp.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /*
  * Created by arjava on 11/23/17.
  */
@@ -20,7 +23,9 @@ import com.arjava.moviefavoritcp.R;
 @SuppressLint("Registered")
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener{
 
-    ImageView facebook, github, linkedin;
+    @BindView(R.id.img_facebook) ImageView facebook;
+    @BindView(R.id.img_github) ImageView github;
+    @BindView(R.id.img_linkedin) ImageView linkedin;
     Intent intent;
 
 
@@ -28,44 +33,13 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
-        facebook = findViewById(R.id.img_facebook);
-        github = findViewById(R.id.img_github);
-        linkedin = findViewById(R.id.img_linkedin);
+        ButterKnife.bind(this);
 
         facebook.setOnClickListener(this);
         github.setOnClickListener(this);
         linkedin.setOnClickListener(this);
 
         getSupportActionBar().setTitle(R.string.about);
-
-        /*facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    intent = new Intent(Intent.ACTION_VIEW);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://www.facebook.com/As.rokhman"));
-                    startActivity(intent);
-                } catch (android.content.ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/As.rokhman")));
-                }
-            }
-        });
-
-        github.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/arjava")));
-            }
-        });
-
-        linkedin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/arjava/")));
-            }
-        });*/
 
     }
 

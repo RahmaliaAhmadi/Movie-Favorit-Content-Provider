@@ -5,6 +5,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollViewDetails">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_detail_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:id="@+id/progressBarDetail"/>
+
     <RelativeLayout
         android:id="@+id/rvLayoutDetail"
         android:layout_width="match_parent"
@@ -87,6 +100,18 @@
                 android:padding="@dimen/padding_main"/>
         </android.support.v7.widget.CardView>
 
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_favourite"
+            app:backgroundTint="@color/fab_favorite"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"/>
+
     </RelativeLayout>
+
+    </RelativeLayout>
+
 
 </ScrollView>

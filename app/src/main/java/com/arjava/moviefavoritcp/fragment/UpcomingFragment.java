@@ -1,7 +1,11 @@
 package com.arjava.moviefavoritcp.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,79 +13,88 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
+import com.arjava.moviefavoritcp.Loader.LoaderUpComing;
 import com.arjava.moviefavoritcp.R;
 import com.arjava.moviefavoritcp.adapter.MovieAdapter;
 import com.arjava.moviefavoritcp.model.MovieModel;
-import com.arjava.moviefavoritcp.request.ApiClient;
-import com.arjava.moviefavoritcp.request.ApiInterface;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /*
  * Created by arjava on 11/20/17.
  */
 
-public class UpcomingFragment extends Fragment {
+public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieModel>> {
 
-    private ProgressBar progresBar;
-
-    private static final String TAG = NowPlayingFragment.class.getSimpleName();
+    @BindView(R.id.progressBarMainUp) ProgressBar progresBar;
+    @BindView(R.id.card_error_load)
+    CardView cardNoConnected;
+    @BindView(R.id.recyclerViewUp) RecyclerView recyclerView;
+    private MovieAdapter adapter;
+    private static final String TAG = UpcomingFragment.class.getSimpleName();
 
     public UpcomingFragment() {
         // dibutuhkan public constructor kosong
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        loadUpcomingMovie();
+        getActivity().getSupportLoaderManager().initLoader(1,null, this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upcoming, container, false);
-        progresBar = view.findViewById(R.id.progressBarMainUp);
+        ButterKnife.bind(this, view);
+
+        adapter = new MovieAdapter(getActivity());
+        cardNoConnected.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.INVISIBLE);
+
+        /*if (savedInstanceState != null) {
+            getActivity().getSupportLoaderManager().initLoader(1, null, this);
+        }*/
         return view;
     }
 
-    private void loadUpcomingMovie() {
-
+    @Override
+    public Loader<ArrayList<MovieModel>> onCreateLoader(int id, Bundle args) {
         progresBar.setVisibility(View.VISIBLE);
-        final RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerViewUp);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ApiInterface apiInterface = ApiClient.getRetrofit(getContext()).create(ApiInterface.class);
-        Call<MovieModel> call = apiInterface.getMovieUpcoming();
-        call.enqueue(new Callback<MovieModel>() {
-            //ketika server meresponse
-            @Override
-            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-                MovieModel data = response.body();
-                if (data.getResults().size()==0) {
-                    Toast.makeText(getContext(), "maaf data yang anda cari tidak ditemukan", Toast.LENGTH_SHORT).show();
-                    progresBar.setVisibility(View.GONE);
-                }else {
-                    recyclerView.setAdapter(new MovieAdapter(data.getResults(), R.layout.content_recycler, getContext()));
-                    Log.e(TAG, "onResponse: hasil pemanggilan"+ call);
-                    progresBar.setVisibility(View.GONE);
-                }
-            }
+        cardNoConnected.setVisibility(View.GONE);
+        return new LoaderUpComing(getActivity());
+    }
 
-            //ketika gagal mendapatkan response
-            @Override
-            public void onFailure(Call<MovieModel> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, t.toString());
-                progresBar.setVisibility(View.GONE);
-            }
-        });
+    @Override
+    public void onLoadFinished(Loader<ArrayList<MovieModel>> loader, ArrayList<MovieModel> data) {
+
+        Log.d(TAG, "onLoadFinished: DATA = "+ data);
+        if (data.size() != 0) {
+            progresBar.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter.setMovieItemsList(data);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerView.setAdapter(adapter);
+        } else {
+            progresBar.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.INVISIBLE);
+            cardNoConnected.setVisibility(View.VISIBLE);
+            cardNoConnected.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().getSupportLoaderManager().restartLoader(1, null, UpcomingFragment.this);
+                    cardNoConnected.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<MovieModel>> loader) {
+        adapter.setMovieItemsList(null);
     }
 }

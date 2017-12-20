@@ -34,4 +34,32 @@
         <item name="android:contentDescription">"Lala"</item>
     </style>
 
+    <style name="RecyclerViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingTop">@dimen/normal_margin</item>
+        <item name="android:paddingLeft">@dimen/normal_margin</item>
+        <item name="android:paddingRight">@dimen/normal_margin</item>
+    </style>
+
+    <style name="ProgressStyle">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="TextError">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <dimen name="normal_margin">5dp</dimen>
 </resources>

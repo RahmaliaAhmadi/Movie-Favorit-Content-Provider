@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.arjava.moviefavoritcp.activity.AboutActivity;
 import com.arjava.moviefavoritcp.activity.ActivitySearchNav;
+import com.arjava.moviefavoritcp.activity.FavoriteActivity;
 import com.arjava.moviefavoritcp.activity.SearchActivity;
 import com.arjava.moviefavoritcp.activity.TopRatedActivity;
 import com.arjava.moviefavoritcp.fragment.NowPlayingFragment;
@@ -31,11 +32,11 @@ import com.arjava.moviefavoritcp.fragment.UpcomingFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
+    public static final String BASE_URL = "https://api.themoviedb.org/3/";
+    public static final String LANGUAGE_MOVIE = "&language=en-US";
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -173,6 +173,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, TopRatedActivity.class));
         } else if (id == R.id.nav_search) {
             startActivity(new Intent(MainActivity.this, ActivitySearchNav.class));
+        }else if (id == R.id.nav_favorite) {
+            startActivity(new Intent(MainActivity.this, FavoriteActivity.class));
         } else if (id == R.id.nav_about) {
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
         } else if (id == R.id.nav_share) {

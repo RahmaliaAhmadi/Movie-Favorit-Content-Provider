@@ -28,4 +28,8 @@
     <string name="change_language">Change Language</string>
     <string name="data_nothing">sorry the data you are looking for is not found</string>
     <string name="no_internet">No Connection Internet !</string>
+    <string name="my_favorite">My Favorite</string>
+    <string name="unfavorite">Unfavorited</string>
+    <string name="favorite">Favorited</string>
+    <string name="error_load_data">Error load data !</string>
 </resources>

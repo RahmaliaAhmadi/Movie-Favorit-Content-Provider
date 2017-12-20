@@ -6,6 +6,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <permission android:name="com.arjava.moviefavoritcp.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.arjava.moviefavoritcp.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="false"
@@ -36,6 +38,13 @@
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".activity.AboutActivity"
             android:configChanges="orientation|screenSize"/>
+        <activity android:name=".activity.FavoriteActivity"/>
+        <provider
+            android:authorities="com.arjava.moviefavoritcp"
+            android:name=".provider.MovieProvider"
+            android:exported="true"
+            android:readPermission="com.arjava.moviesfavorite.READ_DATABASE"
+            android:writePermission="com.arjava.moviesfavorite.WRITE_DATABASE"/>
     </application>
 
 </manifest>

@@ -16,7 +16,6 @@ import com.arjava.moviefavoritcp.R;
 import com.arjava.moviefavoritcp.activity.DetailsMovie;
 import com.arjava.moviefavoritcp.model.MovieModel;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -78,9 +77,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         Glide
                 .with(context)
                 .load(poster_image)
-                .apply(RequestOptions.centerCropTransform())
-                .apply(RequestOptions.overrideOf(300, 400))
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_crop_original_purple_300_24dp))
+                .centerCrop()
+                .override(300, 400)
+                .placeholder(R.drawable.ic_crop_original_purple_300_24dp)
                 .into(movieViewHolder.imageView);
 
         //penanganan ketika button detail diklik

@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.arjava.moviefavoritcp.database.DatabaseHelper;
-import com.arjava.moviefavoritcp.database.MovieHelper;
 
 import static android.provider.BaseColumns._ID;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.AUTHORITY;
@@ -38,13 +37,11 @@ public class MovieProvider extends ContentProvider {
         rUriMatcher.addURI(AUTHORITY, TABLE_MOVIE_FAVORITE+ "/#", FAVORIT_ID);
     }
 
-    private MovieHelper movieHelper;
     private SQLiteDatabase database;
-    private DatabaseHelper databaseHelper;
 
     @Override
     public boolean onCreate() {
-        databaseHelper = new DatabaseHelper(getContext());
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         database = databaseHelper.getWritableDatabase();
         return true;
     }

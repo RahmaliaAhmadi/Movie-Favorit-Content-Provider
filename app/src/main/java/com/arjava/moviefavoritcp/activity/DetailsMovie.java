@@ -20,7 +20,6 @@ import com.arjava.moviefavoritcp.R;
 import com.arjava.moviefavoritcp.database.MovieHelper;
 import com.arjava.moviefavoritcp.model.MovieModel;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -46,7 +45,6 @@ public class DetailsMovie extends AppCompatActivity implements LoaderManager.Loa
 
     private int id_movie;
     private boolean isFavorited;
-    private String movie_title;
 
     //create object
 
@@ -65,11 +63,6 @@ public class DetailsMovie extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.rvLayoutDetail)
     RelativeLayout view_detail;
 
-    //data movie
-    private String title, titleOri, overview, release_date, poster_path, backdrop_path;
-    private Double vote;
-    private int id_share;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +78,6 @@ public class DetailsMovie extends AppCompatActivity implements LoaderManager.Loa
 
         movieModel = getIntent().getParcelableExtra(EXTRA_MOVIE);
         id_movie = getIntent().getIntExtra(EXTRA_ID, 0);
-        movie_title = getIntent().getStringExtra(EXTRA_TITLE);
 
         if (movieModel != null) {
             setFavoriteStatus();
@@ -105,7 +97,9 @@ public class DetailsMovie extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void setFavoriteStatus() {
-        if (id_movie == movieModel.getMovie_id()) {
+        int db_movie = movieHelper.getData(movieModel.getMovie_id());
+        if (db_movie == movieModel.getMovie_id()) {
+            Log.d(TAG, "setFavoriteStatus: MOVIE ID"+ movieModel.getMovie_id());
             fab_favorite.setImageResource(R.drawable.ic_favorite_black_24dp);
         } else {
             fab_favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
@@ -113,7 +107,8 @@ public class DetailsMovie extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public boolean isFavorited() {
-        if (id_movie == movieModel.getMovie_id()) {
+        int db_movie = movieHelper.getData(movieModel.getMovie_id());
+        if (db_movie == movieModel.getMovie_id()) {
             movieHelper.deleteProvider(movieModel.getMovie_id());
             isFavorited = true;
             return true;
@@ -135,7 +130,8 @@ public class DetailsMovie extends AppCompatActivity implements LoaderManager.Loa
 
     @OnClick(R.id.fab_favourite)
     void setFab_favorite() {
-        if (isFavorited()) {
+        isFavorited = isFavorited();
+        if (isFavorited) {
             Toast.makeText(this, R.string.unfavorite, Toast.LENGTH_SHORT).show();
             fab_favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         } else {
@@ -170,42 +166,33 @@ public class DetailsMovie extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<ArrayList<MovieModel>> loader, ArrayList<MovieModel> data) {
-        if (data.size() != 0) {
+
             progressBar.setVisibility(View.GONE);
             view_detail.setVisibility(View.VISIBLE);
 
-            String url_image = "http://image.tmdb.org/t/p/w185/";
-            id_share = data.get(0).getMovie_id();
-            title = data.get(0).getTitle();
-            titleOri = data.get(0).getOriginal_title();
-            overview = data.get(0).getOverview();
-            release_date = data.get(0).getRelease_date();
-            backdrop_path = data.get(0).getBackdrop_path();
-            vote = data.get(0).getVote_average();
-            poster_path = data.get(0).getPoster_path();
+            String url_image = "http://image.tmdb.org/t/p/w342/";
+        String titleOri = data.get(0).getOriginal_title();
+        String overview = data.get(0).getOverview();
+        String backdrop_path = data.get(0).getBackdrop_path();
+        Double vote = data.get(0).getVote_average();
             String imageLoad = url_image + backdrop_path;
-            Log.d(TAG, "onLoadFinished: POSTER_PATH " + backdrop_path);
+            Log.d(TAG, "onLoadFinished: POSTER_PATH " + imageLoad);
 
             //set title actionbar
             getSupportActionBar().setTitle(titleOri);
             //show image backdrop
-            if (id_movie != 0) {
-                //show image use library
-                Glide
-                        .with(DetailsMovie.this)
-                        .load(imageLoad)
-                        .apply(RequestOptions.placeholderOf(R.drawable.thumbnail_details_image))
-                        .into(imageViewDetails);
-            }
+
+            Glide
+                    .with(DetailsMovie.this)
+                    .load(imageLoad)
+                    .placeholder(R.drawable.thumbnail_details_image)
+                    .into(imageViewDetails);
             //show vote @Double
             textViewVote.setText(String.valueOf(vote));
             //show Title
             textViewTitle.setText(titleOri);
             //show Descripton
             textViewOverview.setText(overview);
-        } else {
-            Toast.makeText(this, "Gagal memuat data !", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

@@ -27,5 +27,9 @@
     <string name="exit_msg">Apa anda yakin Ingin Keluar ?</string>
     <string name="change_language">Ubah Bahasa</string>
     <string name="data_nothing">maaf data yang anda cari tidak ditemukan</string>
-    <string name="no_internet">No Connection Internet !</string>
+    <string name="appwidget_text">Film Favoritku</string>
+    <string name="empty_text">Tidak ada favorit</string>
+    <string name="message_daily"><![CDATA[Movie Favorit kangen kamu nih! yuk tengok.]]></string>
+    <string name="upcoming_reminder">Hari ini</string>
+    <string name="release">keluar</string>
 </resources>

@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.arjava.moviefavoritcp.Loader.LoaderSearchMovie;
 import com.arjava.moviefavoritcp.R;
@@ -34,8 +33,6 @@ import butterknife.OnClick;
 public class ActivitySearchNav extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieModel>> {
 
     private MovieAdapter adapter;
-    private static final String QUERY_SEARCH = "query_search_keep_when_change_orientation";
-    private String query_search = "input_search";
 
     @BindView(R.id.progressBarSnav)
     ProgressBar progressBar;
@@ -47,6 +44,7 @@ public class ActivitySearchNav extends AppCompatActivity implements LoaderManage
     RecyclerView recyclerView;
     @BindView(R.id.card_error_load)
     CardView cardView_load_error;
+    static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
 
     public ActivitySearchNav() {
     }
@@ -59,22 +57,20 @@ public class ActivitySearchNav extends AppCompatActivity implements LoaderManage
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        adapter = new MovieAdapter(ActivitySearchNav.this);
-        progressBar.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.INVISIBLE);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.search_nav);
-        inputSearch.setText(QUERY_SEARCH);
         getSupportLoaderManager().initLoader(0, null, this);
+        adapter = new MovieAdapter(ActivitySearchNav.this);
+        adapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.INVISIBLE);
+        cardView_load_error.setVisibility(View.GONE);
 
+        String query_search = inputSearch.getText().toString();
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRAS_MOVIE, query_search);
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(QUERY_SEARCH, inputSearch.getText().toString());
-        super.onSaveInstanceState(outState);
+        getSupportLoaderManager().initLoader(0, bundle, this);
     }
 
     public static void hideSoftKeyboard(Activity activity) {
@@ -99,17 +95,13 @@ public class ActivitySearchNav extends AppCompatActivity implements LoaderManage
     public void setBtnSearch(View view) {
         if (view.getId() == R.id.btnSearch) {
             recyclerView.setVisibility(View.INVISIBLE);
-            query_search = inputSearch.getText().toString();
+            String querySsearch = inputSearch.getText().toString();
 
-            boolean isEmpty = false;
+            if (TextUtils.isEmpty(querySsearch)) return;
+            Bundle bundle = new Bundle();
+            bundle.putString(EXTRAS_MOVIE, querySsearch);
+            getSupportLoaderManager().restartLoader(0, bundle, this);
 
-            if (TextUtils.isEmpty(query_search)) {
-                isEmpty = true;
-                Toast.makeText(this, R.string.data_nothing, Toast.LENGTH_SHORT).show();
-            }
-            if (!isEmpty) {
-                getSupportLoaderManager().initLoader(0, null, this);
-            }
         }
         hideSoftKeyboard(this);
     }
@@ -117,19 +109,23 @@ public class ActivitySearchNav extends AppCompatActivity implements LoaderManage
     @Override
     public Loader<ArrayList<MovieModel>> onCreateLoader(int id, Bundle args) {
 
-        query_search = inputSearch.getText().toString();
+        progressBar.setVisibility(View.VISIBLE);
+        cardView_load_error.setVisibility(View.GONE);
 
-        if (!TextUtils.isEmpty(query_search)) {
+        String queryMovie = "";
+        if (args != null) {
+            queryMovie = args.getString(EXTRAS_MOVIE);
+            new LoaderSearchMovie(this, queryMovie);
+        } else {
             progressBar.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.INVISIBLE);
-            return new LoaderSearchMovie(this, query_search);
         }
-        return null;
+        return new LoaderSearchMovie(this, queryMovie);
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<MovieModel>> loader, ArrayList<MovieModel> data) {
         if (data.size() != 0) {
+            cardView_load_error.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             adapter.setMovieItemsList(data);
@@ -139,13 +135,6 @@ public class ActivitySearchNav extends AppCompatActivity implements LoaderManage
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.INVISIBLE);
             cardView_load_error.setVisibility(View.VISIBLE);
-            cardView_load_error.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getSupportLoaderManager().restartLoader(0, null, ActivitySearchNav.this);
-                    cardView_load_error.setVisibility(View.GONE);
-                }
-            });
         }
     }
 

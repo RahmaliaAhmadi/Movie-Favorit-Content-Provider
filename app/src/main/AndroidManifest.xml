@@ -6,6 +6,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <permission android:name="com.arjava.moviefavoritcp.READ_DATABASE" android:protectionLevel="normal"/>
     <permission android:name="com.arjava.moviefavoritcp.WRITE_DATABASE" android:protectionLevel="normal"/>
 
@@ -18,7 +20,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize">
@@ -29,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.DetailsMovie"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize" />
         <activity android:name=".activity.SearchActivity"
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".activity.ActivitySearchNav"
@@ -43,8 +45,36 @@
             android:authorities="com.arjava.moviefavoritcp"
             android:name=".provider.MovieProvider"
             android:exported="true"
-            android:readPermission="com.arjava.moviesfavorite.READ_DATABASE"
-            android:writePermission="com.arjava.moviesfavorite.WRITE_DATABASE"/>
+            android:readPermission="com.arjava.moviefavoritcp.READ_DATABASE"
+            android:writePermission="com.arjava.moviefavoritcp.WRITE_DATABASE"/>
+
+        <receiver android:name="com.arjava.moviefavoritcp.widget.StackWidgetMovie">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/stack_widget_movie_info" />
+        </receiver>
+
+        <service android:name=".widget.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+        <receiver
+            android:name=".notification.DailyReminder"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedReceiver" />
+
+        <service
+            android:name=".notification.UpcomingReminder"
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

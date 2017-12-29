@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movie Favorit Cp</string>
+    <string name="app_name">Movies Favorit</string>
     <string name="nav_title">My Movies Catalogue</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
@@ -29,4 +29,5 @@
     <string name="data_nothing">sorry the data you are looking for is not found</string>
     <string name="no_internet">No Connection Internet !</string>
     <string name="my_favorite">My Favorite</string>
+
 </resources>

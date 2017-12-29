@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,17 +53,19 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         ButterKnife.bind(this);
 
         movieAdapter = new MovieAdapter(this);
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
+        cardView_error_load.setVisibility(View.GONE);
 
+        Intent cari_film = getIntent();
+        input_movie = cari_film.getStringExtra("cari_film");
         //set home button and title Actionbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.result_search) + " " + input_movie);
         getSupportLoaderManager().initLoader(0, null, this);
 
         //get string from MainActivity
-        Intent cari_film = getIntent();
-        input_movie = cari_film.getStringExtra("cari_film");
+
         Log.d(TAG, "onCreate: SearchActivity = "+input_movie);
     }
 

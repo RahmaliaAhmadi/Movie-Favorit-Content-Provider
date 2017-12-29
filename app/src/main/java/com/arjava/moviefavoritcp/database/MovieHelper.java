@@ -11,8 +11,8 @@ import com.arjava.moviefavoritcp.model.MovieModel;
 
 import java.util.ArrayList;
 
-import static android.provider.BaseColumns._ID;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.BACKDROP_PATH;
+import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.ID_ROOT;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.ID_SHARE;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.ORIGINAL_TITLE;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.OVERVIEW;
@@ -30,7 +30,6 @@ public class MovieHelper {
 
     private static String DATABASE_TABLE = TABLE_MOVIE_FAVORITE;
     private Context context;
-    private DatabaseHelper databaseHelper;
     private SQLiteDatabase database;
 
 
@@ -38,10 +37,9 @@ public class MovieHelper {
         this.context = context;
     }
 
-    public MovieHelper open() throws SQLException {
-        databaseHelper = new DatabaseHelper(context);
+    public void open() throws SQLException {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
         database = databaseHelper.getWritableDatabase();
-        return this;
     }
 
     public void close() {
@@ -83,7 +81,7 @@ public class MovieHelper {
         if (cursor.getCount()>0){
             do {
                 movieItems = new MovieModel();
-                movieItems.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.FavoriteColumns._ID)));
+                movieItems.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.FavoriteColumns.ID_ROOT)));
                 movieItems.setMovie_id(cursor.getInt(cursor.getColumnIndexOrThrow(ID_SHARE)));
                 movieItems.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
                 movieItems.setOriginal_title(cursor.getString(cursor.getColumnIndexOrThrow(ORIGINAL_TITLE)));
@@ -103,7 +101,7 @@ public class MovieHelper {
     }
 
     //menyimpan data ke dalam provider
-    public long insertProvider(MovieModel movieItems) {
+    public void insertProvider(MovieModel movieItems) {
         ContentValues initialValue = new ContentValues();
         initialValue.put(ID_SHARE, movieItems.getMovie_id());
         initialValue.put(TITLE, movieItems.getTitle());
@@ -114,11 +112,11 @@ public class MovieHelper {
         initialValue.put(BACKDROP_PATH, movieItems.getBackdrop_path());
         initialValue.put(VOTE, movieItems.getVote_average());
         Log.d("TAG", "insert: success");
-        return database.insert(DATABASE_TABLE, null, initialValue);
+        database.insert(DATABASE_TABLE, null, initialValue);
     }
 
     //menghapus data dari provider
     public void deleteProvider(int id) {
-        database.delete(DATABASE_TABLE, _ID + " = '"+id+ "'",null);
+        database.delete(DATABASE_TABLE, ID_ROOT + " = '"+id+ "'",null);
     }
 }

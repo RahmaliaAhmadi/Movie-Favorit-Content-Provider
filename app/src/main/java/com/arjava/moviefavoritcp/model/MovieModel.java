@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import org.json.JSONObject;
 
-import java.util.List;
-
 /*
  * Created by arjava on 11/13/17.
  */
@@ -44,7 +42,6 @@ public class MovieModel implements Parcelable {
     private boolean adult;
     private String overview;
     private String release_date;
-    private List<Integer> genre_ids;
 
     public MovieModel() {
     }

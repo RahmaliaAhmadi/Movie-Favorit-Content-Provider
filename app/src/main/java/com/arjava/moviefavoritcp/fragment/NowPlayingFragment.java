@@ -45,11 +45,6 @@ public class NowPlayingFragment extends Fragment implements LoaderManager.Loader
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-
-        /*if (savedInstanceState != null) {
-            getActivity().getSupportLoaderManager().initLoader(1, null, this);
-        }*/
         getActivity().getSupportLoaderManager().initLoader(0,null, this);
     }
 

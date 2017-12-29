@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static android.provider.BaseColumns._ID;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.BACKDROP_PATH;
+import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.ID_ROOT;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.ID_SHARE;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.ORIGINAL_TITLE;
 import static com.arjava.moviefavoritcp.database.DatabaseContract.FavoriteColumns.OVERVIEW;
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 3;
 
     public static final String SQL_CREATE_TABLE_FAVORITE_MOVIE = "CREATE TABLE " + TABLE_MOVIE_FAVORITE
-                    + " (" + _ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + " (" + ID_ROOT +" INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + ID_SHARE +" TEXT NOT NULL, "
                     + TITLE +" TEXT NOT NULL, "
                     + ORIGINAL_TITLE +" TEXT NOT NULL, "

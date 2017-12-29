@@ -14,12 +14,14 @@ android {
         debug {
             //inisiasi API_KEY
             buildConfigField("String", "API_KEY", "\"a335a4721d43dd89695b62ad18073bae\"")
+            buildConfigField("String", "URL_POSTER", "\"http://image.tmdb.org/t/p/w185\"")
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //inisiasi API_KEY
             buildConfigField("String", "API_KEY", "\"a335a4721d43dd89695b62ad18073bae\"")
+            buildConfigField("String", "URL_POSTER", "\"http://image.tmdb.org/t/p/w185\"")
         }
     }
 }
@@ -35,7 +37,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // library untuk load image
-    implementation 'com.github.bumptech.glide:glide:4.3.1'
+//    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    //noinspection GradleDependency
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
     // library recyclerview
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     // library cardview
@@ -45,4 +49,7 @@ dependencies {
     // library untuk meringkas inisiasi view
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //gcm notification
+    implementation 'com.google.android.gms:play-services-gcm:11.0.4'
+
 }

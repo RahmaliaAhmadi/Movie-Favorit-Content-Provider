@@ -1,6 +1,5 @@
 package com.arjava.moviesfavorite.db;
 
-import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -15,13 +14,10 @@ public class DatabaseContract {
     public static final class FavoriteColumns implements BaseColumns {
 
         //favorite id
-        public static int ID_SHARE = 0;
+        public static String ID_SHARE = "id_movie";
 
         //favorite title
         public static String TITLE = "title";
-
-        //favorite original_title
-        public static String ORIGINAL_TITLE = "original_title";
 
         //favorite overview
         public static String OVERVIEW = "overview";
@@ -36,7 +32,7 @@ public class DatabaseContract {
         public static String BACKDROP_PATH = "backdrop_path";
 
         //favorite vote
-        public static String VOTE = "";
+        public static String VOTE = "vote_average";
     }
 
     //authority yang dipakai
@@ -47,15 +43,5 @@ public class DatabaseContract {
             .authority(AUTHORITY)
             .appendPath(TABLE_MOVIE_FAVORITE)
             .build();
-
-    //digunakan untuk mempermudah akses data di dalam cursor dengan parameter nama column
-
-    public static String getColumnString(Cursor cursor, String columnName) {
-        return cursor.getString(cursor.getColumnIndex(columnName));
-    }
-
-    public static double getColumnDouble(Cursor cursor, String columnName) {
-        return cursor.getDouble(cursor.getColumnIndex(columnName));
-    }
 
 }

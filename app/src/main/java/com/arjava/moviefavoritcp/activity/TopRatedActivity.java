@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.arjava.moviefavoritcp.Loader.LoaderSearchMovie;
 import com.arjava.moviefavoritcp.Loader.LoaderTopRated;
 import com.arjava.moviefavoritcp.R;
 import com.arjava.moviefavoritcp.adapter.MovieAdapter;

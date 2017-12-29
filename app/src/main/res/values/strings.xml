@@ -32,4 +32,10 @@
     <string name="unfavorite">Unfavorited</string>
     <string name="favorite">Favorited</string>
     <string name="error_load_data">Error load data !</string>
+    <string name="no_data_result">Empty result! Please entry title and submit button</string>
+    <string name="appwidget_text">My Favorit Movie</string>
+    <string name="empty_text">Empty Favorit</string>
+    <string name="message_daily"><![CDATA[Catalogue Movie is missing you]]></string>
+    <string name="upcoming_reminder">This day</string>
+    <string name="release">release</string>
 </resources>

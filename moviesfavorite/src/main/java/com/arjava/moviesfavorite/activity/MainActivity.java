@@ -1,4 +1,4 @@
-package com.arjava.moviesfavorite;
+package com.arjava.moviesfavorite.activity;
 
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.arjava.moviesfavorite.R;
 import com.arjava.moviesfavorite.adapter.MovieAdapter;
 
 import static com.arjava.moviesfavorite.db.DatabaseContract.CONTENT_URI;
@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private MovieAdapter movieAdapter;
     ListView lvMovieFavorite;
-
     private final int LOAD_FAVORITE_ID = 110;
 
     @Override
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         getSupportActionBar().setTitle("Favorite Movie");
 
         lvMovieFavorite = findViewById(R.id.lv_movie);
+        lvMovieFavorite.setOnItemClickListener(this);
         movieAdapter = new MovieAdapter(this, null, true);
         lvMovieFavorite.setAdapter(movieAdapter);
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(this, "Item Clicked", Toast.LENGTH_SHORT).show();
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
     }
 }

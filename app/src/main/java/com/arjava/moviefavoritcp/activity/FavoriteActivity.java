@@ -1,5 +1,6 @@
 package com.arjava.moviefavoritcp.activity;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -68,6 +69,7 @@ public class FavoriteActivity extends AppCompatActivity {
         new LoaderFavorite().execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class LoaderFavorite extends AsyncTask<Void, Void, ArrayList<MovieModel>> {
 
         @Override

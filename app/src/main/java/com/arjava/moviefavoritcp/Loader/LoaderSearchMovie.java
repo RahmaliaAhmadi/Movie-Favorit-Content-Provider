@@ -4,10 +4,8 @@ package com.arjava.moviefavoritcp.Loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.arjava.moviefavoritcp.BuildConfig;
-import com.arjava.moviefavoritcp.activity.SearchActivity;
 import com.arjava.moviefavoritcp.model.MovieModel;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
@@ -17,12 +15,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.arjava.moviefavoritcp.MainActivity.BASE_URL;
-import static com.arjava.moviefavoritcp.MainActivity.LANGUAGE_MOVIE;
+import static com.arjava.moviefavoritcp.activity.MainActivity.BASE_URL;
+import static com.arjava.moviefavoritcp.activity.MainActivity.LANGUAGE_MOVIE;
 
 /*
  * Created by arjava on 12/15/17.
@@ -31,15 +28,14 @@ import static com.arjava.moviefavoritcp.MainActivity.LANGUAGE_MOVIE;
 public class LoaderSearchMovie extends AsyncTaskLoader<ArrayList<MovieModel>> {
 
     private ArrayList<MovieModel> sDataMovie;
-    private static SearchActivity parent;
     private boolean hasResult = false;
     private String input_movie;
     private String TAG = "LoaderSearchMovie";
 
     public LoaderSearchMovie(Context context, String input_movie) {
         super(context);
-        this.input_movie = input_movie;
         onContentChanged();
+        this.input_movie = input_movie;
     }
 
     @Override
@@ -64,12 +60,13 @@ public class LoaderSearchMovie extends AsyncTaskLoader<ArrayList<MovieModel>> {
         super.onReset();
         onStopLoading();
         if (hasResult) {
-            onReleaseResources(sDataMovie);
+            onReleaseResources();
+            sDataMovie = null;
             hasResult = false;
         }
     }
 
-    private void onReleaseResources(ArrayList<MovieModel> sDataMovie) {
+    private void onReleaseResources() {
 
     }
 
@@ -78,7 +75,7 @@ public class LoaderSearchMovie extends AsyncTaskLoader<ArrayList<MovieModel>> {
 
         final ArrayList<MovieModel> movieModels = new ArrayList<>();
         String urlSearchMovie = "search/movie?api_key=";
-        String url = BASE_URL + urlSearchMovie + BuildConfig.API_KEY + LANGUAGE_MOVIE + input_movie;
+        String url = BASE_URL + urlSearchMovie + BuildConfig.API_KEY + LANGUAGE_MOVIE + "&query=" + input_movie;
         Log.d(TAG, "loadInBackground: LoaderSeachActivity = "+input_movie);
         SyncHttpClient client = new SyncHttpClient();
         client.get(url, new AsyncHttpResponseHandler() {

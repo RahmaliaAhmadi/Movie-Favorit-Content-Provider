@@ -3,7 +3,6 @@ package com.arjava.moviefavoritcp.Loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.arjava.moviefavoritcp.BuildConfig;
 import com.arjava.moviefavoritcp.model.MovieModel;
@@ -15,12 +14,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.arjava.moviefavoritcp.MainActivity.BASE_URL;
-import static com.arjava.moviefavoritcp.MainActivity.LANGUAGE_MOVIE;
+import static com.arjava.moviefavoritcp.activity.MainActivity.BASE_URL;
+import static com.arjava.moviefavoritcp.activity.MainActivity.LANGUAGE_MOVIE;
 
 /*
  * Created by arjava on 12/16/17.

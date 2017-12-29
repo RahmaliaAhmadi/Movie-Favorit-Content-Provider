@@ -1,4 +1,4 @@
-package com.arjava.moviefavoritcp;
+package com.arjava.moviefavoritcp.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,13 +21,11 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.arjava.moviefavoritcp.activity.AboutActivity;
-import com.arjava.moviefavoritcp.activity.ActivitySearchNav;
-import com.arjava.moviefavoritcp.activity.FavoriteActivity;
-import com.arjava.moviefavoritcp.activity.SearchActivity;
-import com.arjava.moviefavoritcp.activity.TopRatedActivity;
+import com.arjava.moviefavoritcp.R;
 import com.arjava.moviefavoritcp.fragment.NowPlayingFragment;
 import com.arjava.moviefavoritcp.fragment.UpcomingFragment;
+import com.arjava.moviefavoritcp.notification.DailyReminder;
+import com.arjava.moviefavoritcp.notification.UpcomingReminder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +41,10 @@ public class MainActivity extends AppCompatActivity
     SearchView searchView;
     NavigationView navigationView;
     private DrawerLayout drawer;
+
+    //notification
+    DailyReminder dailyReminder;
+    UpcomingReminder.UpComingTask upComingTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,12 @@ public class MainActivity extends AppCompatActivity
         searchView = findViewById(R.id.search_name);
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(getResources().getString(R.string.search));
+
+        dailyReminder = new DailyReminder();
+        upComingTask = new UpcomingReminder.UpComingTask(MainActivity.this);
+        dailyReminder.setDailyReminderMovieAlarm(this, DailyReminder.TYPE_DAILY_REMINDER,
+                getString(R.string.message_daily));
+        upComingTask.createPeriodicTask();
 
     }
 

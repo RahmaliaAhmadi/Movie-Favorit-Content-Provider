@@ -2,14 +2,14 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.arjava.moviefavoritcp">
+    package="com.arjava.filmjadwal">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-    <permission android:name="com.arjava.moviefavoritcp.READ_DATABASE" android:protectionLevel="normal"/>
-    <permission android:name="com.arjava.moviefavoritcp.WRITE_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.arjava.filmjadwal.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.arjava.filmjadwal.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="false"
@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.arjava.filmjadwal.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize">
@@ -30,25 +30,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DetailsMovie"
+        <activity android:name="com.arjava.filmjadwal.activity.DetailsMovie"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".activity.SearchActivity"
+        <activity android:name="com.arjava.filmjadwal.activity.SearchActivity"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name=".activity.ActivitySearchNav"
+        <activity android:name="com.arjava.filmjadwal.activity.ActivitySearchNav"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name=".activity.TopRatedActivity"
+        <activity android:name="com.arjava.filmjadwal.activity.TopRatedActivity"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name=".activity.AboutActivity"
+        <activity android:name="com.arjava.filmjadwal.activity.AboutActivity"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name=".activity.FavoriteActivity"/>
+        <activity android:name="com.arjava.filmjadwal.activity.FavoriteActivity"/>
         <provider
-            android:authorities="com.arjava.moviefavoritcp"
-            android:name=".provider.MovieProvider"
+            android:authorities="com.arjava.filmjadwal"
+            android:name="com.arjava.filmjadwal.provider.MovieProvider"
             android:exported="true"
             android:readPermission="com.arjava.moviefavoritcp.READ_DATABASE"
             android:writePermission="com.arjava.moviefavoritcp.WRITE_DATABASE"/>
 
-        <receiver android:name="com.arjava.moviefavoritcp.widget.StackWidgetMovie">
+        <receiver android:name="com.arjava.filmjadwal.widget.StackWidgetMovie">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -58,17 +58,17 @@
                 android:resource="@xml/stack_widget_movie_info" />
         </receiver>
 
-        <service android:name=".widget.StackWidgetService"
+        <service android:name="com.arjava.filmjadwal.widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <receiver
-            android:name=".notification.DailyReminder"
+            android:name="com.arjava.filmjadwal.notification.DailyReminder"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver" />
 
         <service
-            android:name=".notification.UpcomingReminder"
+            android:name="com.arjava.filmjadwal.notification.UpcomingReminder"
             android:exported="true"
             android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
             <intent-filter>

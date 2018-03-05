@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movie Favorit Cp</string>
+    <string name="app_name">Movie Schedule</string>
     <string name="nav_title">My Movies Catalogue</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>

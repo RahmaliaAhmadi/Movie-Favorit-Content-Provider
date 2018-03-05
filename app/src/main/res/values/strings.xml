@@ -19,9 +19,9 @@
     <string name="about">About</string>
     <string name="more_app">More Apps</string>
     <string name="pengembang">Developer :</string>
-    <string name="arjava" translatable="false">Arjava</string>
-    <string name="app_version" translatable="false">Version 1.0</string>
-    <string name="email">arjava379@gmail.com</string>
+    <string name="arjava" >Arjava</string>
+    <string name="app_version" >Version 1.0</string>
+    <string name="email" translatable="false">arjava379@gmail.com</string>
     <string name="search_nav">Search Movie</string>
     <string name="app_description">Movie list app.\nThere is a list of the highest ratings, there is a list of upcoming movies, as well as movies being aired.\nIn addition you can also search for movies by entering the title of the movie.</string>
     <string name="exit_msg">Are you sure you want to Quit?</string>
@@ -29,9 +29,9 @@
     <string name="data_nothing">sorry the data you are looking for is not found</string>
     <string name="no_internet">No Connection Internet !</string>
     <string name="my_favorite">My Favorite</string>
-    <string name="unfavorite">Unfavorited</string>
-    <string name="favorite">Favorited</string>
-    <string name="error_load_data">Error load data !</string>
+    <string name="unfavorite" translatable="false">Unfavorited</string>
+    <string name="favorite" translatable="false">Favorited</string>
+    <string name="error_load_data" translatable="false">Error load data !</string>
     <string name="no_data_result">Empty result! Please entry title and submit button</string>
     <string name="appwidget_text">My Favorit Movie</string>
     <string name="empty_text">Empty Favorit</string>

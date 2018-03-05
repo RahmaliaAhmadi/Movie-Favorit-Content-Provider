@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Jadwal Film</string>
+    <string name="app_name">Jadwal Film</string>
     <string name="nav_title">Katalog Film saya</string>
-    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="action_settings">Pengaturan</string>
     <string name="share">Berbagi</string>
     <string name="detail">Rincian</string>
-    <string name="title_activity_scrollable_tabs" translatable="false">ScrollableTabs</string>
     <string name="up_coming">Coming Soon</string>
     <string name="now_playing">Now Playing</string>
     <string name="toprated">Top Rated</string>
@@ -20,12 +17,14 @@
     <string name="about">Tentang</string>
     <string name="more_app">More Apps</string>
     <string name="pengembang">Pengembang : </string>
-    <string name="arjava" translatable="false">Arjava</string>
-    <string name="app_version" translatable="false">Versi 1.0</string>
+    <string name="arjava">Arjava</string>
+    <string name="app_version" >Versi 1.0</string>
     <string name="search_nav">Cari Film</string>
+    <string name="no_internet">Tidak ada Koneksi Internet !</string>
     <string name="my_favorite">Favorite saya</string>
     <string name="app_description">Aplikasi daftar film.\\nAda daftar rating tertinggi, ada daftar film yang akan datang, dan juga film yang sedang tayang.\\nSelain itu anda juga bisa mencari film dengan memasukan judul film.</string>
     <string name="exit_msg">Apa anda yakin Ingin Keluar ?</string>
+    <string name="no_data_result">Tidak ada hasil! Silahkan masukan judul dan tekan tombol.</string>
     <string name="change_language">Ubah Bahasa</string>
     <string name="data_nothing">maaf data yang anda cari tidak ditemukan</string>
     <string name="appwidget_text">Film Favoritku</string>

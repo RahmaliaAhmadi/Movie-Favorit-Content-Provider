@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -30,13 +31,15 @@ import butterknife.ButterKnife;
 public class FavoriteActivity extends AppCompatActivity {
 
     private static final String TAG = "TAG_Favorite";
+    @BindView(R.id.card_error_load)
+    CardView cardNotFound;
+    @BindView(R.id.rcv_movie)
+    RecyclerView rcvlistMovie;
+    @BindView(R.id.progress)
+    ProgressBar loading;
     private MovieHelper movieHelper;
     private ArrayList<MovieModel> sDataMovie;
     private MovieAdapter adapter;
-
-    @BindView(R.id.card_error_load)CardView cardNotFound;
-    @BindView(R.id.rcv_movie)RecyclerView rcvlistMovie;
-    @BindView(R.id.progress)ProgressBar loading;
 
     public FavoriteActivity() {
     }
@@ -46,6 +49,9 @@ public class FavoriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         ButterKnife.bind(this);
+
+        getSupportActionBar().setTitle(getString(R.string.my_favorite));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rcvlistMovie.setLayoutManager(new LinearLayoutManager(this));
         rcvlistMovie.setHasFixedSize(true);
@@ -67,6 +73,18 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         new LoaderFavorite().execute();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -109,5 +127,4 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         }
     }
-
 }

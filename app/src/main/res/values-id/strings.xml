@@ -23,6 +23,7 @@
     <string name="arjava" translatable="false">Arjava</string>
     <string name="app_version" translatable="false">Versi 1.0</string>
     <string name="search_nav">Cari Film</string>
+    <string name="my_favorite">Favorite saya</string>
     <string name="app_description">Aplikasi daftar film.\\nAda daftar rating tertinggi, ada daftar film yang akan datang, dan juga film yang sedang tayang.\\nSelain itu anda juga bisa mencari film dengan memasukan judul film.</string>
     <string name="exit_msg">Apa anda yakin Ingin Keluar ?</string>
     <string name="change_language">Ubah Bahasa</string>
